@@ -15,3 +15,7 @@
   border-image: linear-gradient(to right, #3ABFF8 0%, #828DF8 100%, #F471B5 100%);
   border-image-slice: 1;
 }
+
+.bg-brand{
+  background-color: linear-gradient(to right, #3ABFF8 0%, #828DF8 100%, #F471B5 100%);
+}
