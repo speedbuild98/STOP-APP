@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.title {
+  background: linear-gradient(90deg, #3ABFF8 5.21%, #828DF8 50.14%, #F471B5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.outline-brand{
+  border-image: linear-gradient(to right, #3ABFF8 0%, #828DF8 100%, #F471B5 100%);
+  border-image-slice: 1;
+}
+
+.bg-brand{
+  background-color: linear-gradient(to right, #3ABFF8 0%, #828DF8 100%, #F471B5 100%);
+}
