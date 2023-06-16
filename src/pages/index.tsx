@@ -1,21 +1,20 @@
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/image";
-import { Logo } from "~/assets";
-import { FaGithub } from "react-icons/fa";
-import { BsFillHeartPulseFill } from "react-icons/bs";
-import { RxCross2 } from "react-icons/rx";
-import Quote from "~/components/Quote";
+import { useState } from "react";
+
+import { Avatar, QuoteComponent, Streak, Stats, LoginComponent } from '~/components';
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status } = useSession();
 
-  const radialProgressStyle: React.CSSProperties = {
-    "--value": "70",
-    "--size": "13rem",
-    "--thickness": "6px",
-  };
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-neutral">
+        <span className="loading loading-bars loading-lg text-primary"></span>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -25,90 +24,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {sessionData ? (
-        <main className="flex min-h-screen flex-col items-center justify-start bg-neutral">
-          <div className="avatar mt-[40px] flex flex-col items-center justify-center">
-            <div className="w-[45px] rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
-              <img
-                src={sessionData.user.image}
-                alt="avatar"
-                onClick={() => window.my_modal_5.showModal()}
-              />
-              <dialog
-                id="my_modal_5"
-                className="modal modal-bottom sm:modal-middle"
-              >
-                <form
-                  method="dialog"
-                  className="modal-box flex flex-col items-center justify-center"
-                >
-                  <div className="modal-action absolute top-0 right-[20px]">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn-circle btn btn-outline btn-primary btn-sm">
-                      <RxCross2 />
-                    </button>
-                  </div>
-                  <div className="avatar flex flex-col items-center justify-center">
-                    <div className="w-[100px] rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
-                      <img src={sessionData.user.image} alt="avatar" />
-                    </div>
-                  </div>
-                  <h3 className="mt-3 text-lg font-bold">
-                    {sessionData.user.name}
-                  </h3>
-                  <h4 className="text-xs font-light">
-                    {sessionData.user.email}
-                  </h4>
-                  <p className="py-4">
-                    <AuthShowcase />
-                  </p>
-                </form>
-              </dialog>
-            </div>
-            <p className="mt-2 text-xs font-light text-primary">
-              {sessionData.user.name}
-            </p>
-          </div>
-          <div
-            className="radial-progress mt-[40px] flex flex-col items-center justify-start text-primary"
-            style={radialProgressStyle}
-          >
-            <h1 className="mt-10 text-2xl font-black">STREAK</h1>
-            <p className="text-4xl font-black text-white">6</p>
-            <p>DAYS</p>
-            <p className="font-black text-white">
-              2<span className="font-light text-primary">Hrs</span> 47
-              <span className="font-light text-primary">Mins</span> 2
-              <span className="font-light text-primary">Secs</span>
-            </p>
-          </div>
-          <div className="flew-row mt-[50px] flex h-[70px] w-full items-center justify-between border-b border-t border-secondary px-[20px]">
-            <div className="flex flex-col">
-              <p className="font-black uppercase text-secondary">Best</p>
-              <span className="flex flex-row font-black">
-                133 <p className="ml-1 font-light">Days</p>
-              </span>
-            </div>
-            <button className="btn-secondary btn-circle btn">
-              <BsFillHeartPulseFill className="h-7 w-7 text-neutral"  />
-            </button>
-            <div className="flex flex-col">
-              <p className="font-black uppercase text-secondary">Attempts</p>
-              <span className="flex flex-row justify-end font-black">
-                6<p className="ml-1 font-light">Times</p>
-              </span>
-            </div>
-          </div>
-          <div>
-            <Quote />
-          </div>
+        <main className="flex min-h-screen flex-col items-center justify-start bg-neutral p-[20px]">
+          <Avatar />
+          <Streak />
+          <Stats />
+          <QuoteComponent />
         </main>
       ) : (
-        <main className="flex min-h-screen flex-col items-center justify-between p-[30px]">
-          <h1 className="title text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            STOP APP
-          </h1>
-          <Image src={Logo} alt="Logo Stop-APP" width={150} height={150} />
-          <AuthShowcase />
+        <main className="flex min-h-screen flex-col items-center justify-between bg-neutral p-[20px]">
+          <LoginComponent />
         </main>
       )}
     </>
@@ -116,23 +40,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  return (
-    <button
-      className="btn-primary btn-outline btn block w-[289px]"
-      onClick={sessionData ? () => void signOut() : () => void signIn()}
-    >
-      {sessionData ? (
-        "Sign out"
-      ) : (
-        <span className="flex flex-row items-center justify-center">
-          Sign in With
-          <FaGithub className="ml-2 h-6 w-6" />
-        </span>
-      )}
-    </button>
-  );
-};
