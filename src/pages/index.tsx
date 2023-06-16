@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {sessionData ? (
-        <main className="flex min-h-screen flex-col items-center justify-start bg-neutral p-[20px]">
+        <main className="flex min-h-screen flex-col items-center justify-around bg-neutral p-[20px]">
           <Avatar />
           <Streak />
           <Stats />

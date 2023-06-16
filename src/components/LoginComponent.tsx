@@ -9,7 +9,7 @@ const LoginComponent = () => {
       <h1 className="title text-7xl font-extrabold tracking-tight text-white sm:text-[5rem]">
         STOP APP
       </h1>
-      <Link target="_blank" href="https://github.com/speedbuild98/STOP-APP" className="tooltip tooltip-accent font-bold" data-tip="would you give us a star on Github?">
+      <Link target="_blank" href="https://github.com/speedbuild98/STOP-APP" className="tooltip tooltip-accent font-bold" data-tip="can you give us a star on Github?">
         <Image src={Logo} alt="Logo Stop-APP" width={150} height={150} />
       </Link>
       <AuthShowcase />
