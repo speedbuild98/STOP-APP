@@ -6,7 +6,7 @@ const AuthShowcase: React.FC = () => {
 
   return (
     <button
-      className="btn-primary btn-outline btn block w-[289px]"
+      className="btn-secondary btn-outline btn block w-[289px]"
       onClick={sessionData ? () => void signOut() : () => void signIn()}
     >
       {sessionData ? (

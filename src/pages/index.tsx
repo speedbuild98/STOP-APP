@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
-import { useState } from "react";
 
 import { Avatar, QuoteComponent, Streak, Stats, LoginComponent } from '~/components';
 
