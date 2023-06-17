@@ -3,14 +3,7 @@ import { api } from "../utils/api";
 
 const Stats = () => {
   // Interfaz para representar la estructura de datos de la adicción
-  interface Addiction {
-    id: string;
-    userId: string;
-    name: string;
-    lastTime: Date;
-    relapses: number;
-    created: Date;
-  }
+
 
   // Consulta la adicción del usuario actual y proporciona una función para volver a consultar los datos
   const { data: addiction, refetch: refetchAddiction } =
@@ -35,7 +28,7 @@ const Stats = () => {
           <p className="font-black uppercase text-secondary">Best</p>
           <span className="flex items-center font-black">
             {addiction?.best}
-            <p className="ml-1 font-light">Days</p>
+              <p className="ml-1 font-light">{addiction?.best === 1 ? "Day" : "Days"}</p>
           </span>
         </div>
         <div className="flex flex-1 justify-center">

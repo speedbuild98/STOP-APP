@@ -1,6 +1,7 @@
-import { string, z } from "zod";
+import { z } from "zod";
 import { DateTime } from "luxon";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import CustomError from "~/utils/customError";
 
 // Creación del enrutador para la funcionalidad relacionada con la adicción
 export const addictionRouter = createTRPCRouter({
@@ -44,7 +45,6 @@ export const addictionRouter = createTRPCRouter({
           userId: ctx.session?.user.id,
         },
       });
-
       // Si no se encuentra la adicción asociada al usuario, se lanza un error personalizado
       if (!Addiction) {
         throw new CustomError({

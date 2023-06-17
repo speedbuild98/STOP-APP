@@ -5,6 +5,16 @@ const Streak = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const { data: addiction, refetch: refetchAddiction } = api.addiction.getUserAddiction.useQuery();
 
+  interface Addiction {
+    best?: number;
+  }
+
+  interface RadialProgressProps {
+    "--value": string;
+    "--size": string;
+    "--thickness": string;
+  }
+
   useEffect(() => {
     // Función para calcular el tiempo transcurrido
     const calculateTimeElapsed = () => {
@@ -61,12 +71,14 @@ const Streak = () => {
   // Calcular el valor de progreso al revés
   const secondsInDay = 24 * 60 * 60;
   const remaining = secondsInDay - (timeElapsed % secondsInDay);
-  const progressValue = ((remaining / secondsInDay) * 100).toFixed(2); 
+  const progressValue : string = ((remaining / secondsInDay) * 100).toFixed(2); 
 
-
+  // Convert progressValue to a number using parseInt or parseFloat
+  const numericProgressValue: number = parseInt(progressValue, 10);
+  
   // Estilo CSS para el componente de progreso radial
-  const radialProgressStyle: React.CSSProperties = {
-    "--value": `${100 - progressValue}`, 
+  const radialProgressStyle: RadialProgressProps = {
+    "--value": `${100 - numericProgressValue}`,
     "--size": "13rem",
     "--thickness": "6px",
   };
