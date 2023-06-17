@@ -18,5 +18,5 @@ This particular application, named STOP-APP, is designed to help individuals tra
 - **Sobriety Tracker**: Users can track the duration of their sobriety and view their progress over time. The app provides a user-friendly interface to input and update the start date of their sobriety.
 - **User Interface**: The application's user interface is built using Tailwind CSS with the DaisyUI plugin, which offers additional UI components and styling options on top of Tailwind CSS.
 
-Feel free to explore the codebase to understand how these technologies have been integrated to create a robust and efficient time tracker application for managing addictions.
+Feel free to explore the codebase to understand how these technologies have been integrated to create a basic time tracker application for managing addictions.
 
