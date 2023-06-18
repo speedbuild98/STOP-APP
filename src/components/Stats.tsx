@@ -1,19 +1,39 @@
 import { BsFillHeartPulseFill } from "react-icons/bs";
+import { api } from "../utils/api";
 
 const Stats = () => {
+  // Interfaz para representar la estructura de datos de la adicción
+
+
+  // Consulta la adicción del usuario actual y proporciona una función para volver a consultar los datos
+  const { data: addiction, refetch: refetchAddiction } =
+    api.addiction.getUserAddiction.useQuery();
+
+  // Mutación para registrar una recaída en la adicción
+  const setRelapse = api.addiction.setRelapse.useMutation({
+    onSuccess: () => {
+      void refetchAddiction();
+    },
+  });
+
+  // Manejador de eventos para registrar una recaída en la adicción
+  const handleRelapse = () => {
+    setRelapse.mutate();
+  };
+
   return (
     <div className="flew-row flex h-[70px] w-full items-center justify-between border-b border-t border-secondary px-[20px] md:max-w-[700px]">
       <div className="my-auto grid w-full grid-cols-3 gap-4">
         <div className="flex flex-1 flex-col">
           <p className="font-black uppercase text-secondary">Best</p>
           <span className="flex items-center font-black">
-            133 <p className="ml-1 font-light">Days</p>
+            {addiction?.best}
+              <p className="ml-1 font-light">{addiction?.best === 1 ? "Day" : "Days"}</p>
           </span>
         </div>
         <div className="flex flex-1 justify-center">
           <button
-            className="btn-accent btn-circle btn border-4 animate-pulse"
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            className="btn-accent btn-circle btn animate-pulse border-4"
             onClick={() => window.my_modal_3.showModal()}
           >
             <BsFillHeartPulseFill className="h-7 w-7 text-neutral" />
@@ -23,11 +43,13 @@ const Stats = () => {
               <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">
                 ✕
               </button>
-              <h3 className="text-lg font-bold text-error uppercase md:text-5xl md:text-center">Relapse</h3>
+              <h3 className="text-lg font-bold uppercase text-error md:text-center md:text-5xl">
+                Relapse
+              </h3>
               <p className="py-4 text-warning md:text-center">
                 This will erase your progress so far, are you sure?
               </p>
-              <button className="btn-error btn">
+              <button onClick={handleRelapse} className="btn-error btn">
                 Yes, I will come back stronger!
               </button>
               <button className="btn-primary btn mt-4">
@@ -37,9 +59,12 @@ const Stats = () => {
           </dialog>
         </div>
         <div className="flex flex-col items-end justify-end">
-          <p className="font-black uppercase text-secondary">Attempts</p>
+          <p className="font-black uppercase text-secondary">Relapses</p>
           <span className="flex items-center justify-end font-black">
-            6<p className="ml-1 font-light">Times</p>
+            {addiction?.relapses}
+            <p className="ml-1 font-light">
+              {addiction?.relapses === 1 ? "Time" : "Times"}
+            </p>
           </span>
         </div>
       </div>
