@@ -85,7 +85,7 @@ const radialProgressStyle: RadialProgressProps = {
   
       <h1 className="mt-10 text-2xl font-black underline underline-offset-4">STREAK</h1>
       <p className="text-5xl font-black">{days}</p>
-      <p>DÍAS</p>
+      <p>{days>1 ? "DAYS" : "DAY"}</p>
       <p className="font-black text-md">
         {hours}<span className="font-light text-primary text-xs mr-2">{hours>1 ? "Hrs" : "Hr"}</span>
         {minutes}<span className="font-light text-primary text-xs mr-2">{minutes>1 ? "Mins" : "Min"}</span>
