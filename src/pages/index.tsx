@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           <ThemeButtons />
         </main>
       ) : (
-        <main className="flex min-h-screen flex-col items-center justify-between p-[20px] py-[50px]">
+        <main className="flex min-h-screen flex-col items-center justify-between p-[20px] py-[150px]">
           <LoginComponent />
           <ThemeButtons />
         </main>
