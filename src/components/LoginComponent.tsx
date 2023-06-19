@@ -6,7 +6,7 @@ import Link from "next/link";
 const LoginComponent = () => {
   return (
     <>
-      <h1 className="title text-7xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+      <h1 className="title text-7xl font-extrabold tracking-tight text-primary sm:text-[5rem]">
         STOP APP
       </h1>
       <Link target="_blank" href="https://github.com/speedbuild98/STOP-APP" className="tooltip tooltip-accent font-bold" data-tip="can you give us a star on Github?">

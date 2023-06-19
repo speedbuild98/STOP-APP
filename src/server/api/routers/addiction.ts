@@ -7,13 +7,12 @@ import CustomError from "~/utils/customError";
 export const addictionRouter = createTRPCRouter({
   // Método para obtener la adicción del usuario actual
   getUserAddiction: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+     ctx.session.user.id;
     let addiction = await ctx.prisma.addiction.findUnique({
       where: {
-        userId,
+        userId: ctx.session.user.id,
       },
     });
-
     // Si no existe una adicción para el usuario, se crea una nueva con valores predeterminados
     if (!addiction) {
       addiction = await ctx.prisma.addiction.create({
@@ -21,7 +20,7 @@ export const addictionRouter = createTRPCRouter({
           name: "Falopa", // Nombre por defecto
           user: {
             connect: {
-              id: userId,
+              id:  ctx.session.user.id,
             },
           },
         },
@@ -44,6 +43,7 @@ export const addictionRouter = createTRPCRouter({
         where: {
           userId: ctx.session?.user.id,
         },
+        
       });
       // Si no se encuentra la adicción asociada al usuario, se lanza un error personalizado
       if (!Addiction) {
@@ -57,7 +57,6 @@ export const addictionRouter = createTRPCRouter({
       throw error;
     }
   }),
-
   // Método para establecer el mejor registro de días sobrios
   setBest: protectedProcedure
     .input(z.object({ best: z.number() }))

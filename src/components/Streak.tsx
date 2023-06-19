@@ -5,20 +5,10 @@ const Streak = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const { data: addiction, refetch: refetchAddiction } = api.addiction.getUserAddiction.useQuery();
 
-  interface Addiction {
-    best?: number;
-  }
-
-  interface RadialProgressProps {
-    "--value": string;
-    "--size": string;
-    "--thickness": string;
-  }
-
   useEffect(() => {
     // Función para calcular el tiempo transcurrido
     const calculateTimeElapsed = () => {
-      if (addiction && addiction.lastTime) {
+      if (addiction?.lastTime) {
         const lastTime = new Date(addiction.lastTime);
         const currentTime = new Date();
 
@@ -51,14 +41,7 @@ const Streak = () => {
       void refetchAddiction();
     },
   });
-
-  // Verificar si el número de días supera al mejor registro actual
-  useEffect(() => {
-    if (days > addiction?.best) {
-      handleSetBest();
-    }
-  }, [days, addiction]);
-
+  
   // Función para establecer el nuevo mejor registro
   const handleSetBest = useCallback(() => {
     setBest.mutate({
@@ -66,6 +49,14 @@ const Streak = () => {
     });
     console.log("best", days);
   }, [days, setBest]);
+
+  // Verificar si el número de días supera al mejor registro actual
+  useEffect(() => {
+    if (days > (addiction?.best || 0)) {
+      handleSetBest();
+    }
+  }, [days, addiction,handleSetBest]);
+
 
 
   // Calcular el valor de progreso al revés
@@ -75,20 +66,27 @@ const Streak = () => {
 
   // Convert progressValue to a number using parseInt or parseFloat
   const numericProgressValue: number = parseInt(progressValue, 10);
-  
-  // Estilo CSS para el componente de progreso radial
-  const radialProgressStyle: RadialProgressProps = {
-    "--value": `${100 - numericProgressValue}`,
-    "--size": "13rem",
-    "--thickness": "6px",
-  };
+
+type RadialProgressProps = React.CSSProperties & {
+  "--value": string;
+  "--size": string;
+  "--thickness": string;
+};
+
+// CSS style for the radial progress component
+const radialProgressStyle: RadialProgressProps = {
+  "--value": `${100 - numericProgressValue}`,
+  "--size": "13rem",
+  "--thickness": "6px",
+};
 
   return (
     <div className="radial-progress outline-[2px] -outline-offset-2 outline outline-primary mt-[40px] flex flex-col items-center justify-start text-primary" style={radialProgressStyle}>
+  
       <h1 className="mt-10 text-2xl font-black underline underline-offset-4">STREAK</h1>
-      <p className="text-5xl font-black text-white">{days}</p>
+      <p className="text-5xl font-black">{days}</p>
       <p>DÍAS</p>
-      <p className="font-black text-white text-md">
+      <p className="font-black text-md">
         {hours}<span className="font-light text-primary text-xs mr-2">{hours>1 ? "Hrs" : "Hr"}</span>
         {minutes}<span className="font-light text-primary text-xs mr-2">{minutes>1 ? "Mins" : "Min"}</span>
         {seconds}<span className="font-light text-primary text-xs">{seconds>1 ? "Segs" : "Seg"}</span>
