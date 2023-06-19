@@ -8,6 +8,7 @@ export const addictionRouter = createTRPCRouter({
   // Método para obtener la adicción del usuario actual
   getUserAddiction: protectedProcedure.query(async ({ ctx }) => {
      ctx.session.user.id;
+  try {
     let addiction = await ctx.prisma.addiction.findUnique({
       where: {
         userId: ctx.session.user.id,
@@ -28,7 +29,12 @@ export const addictionRouter = createTRPCRouter({
     }
 
     return addiction;
-  }),
+  } catch (error) {
+    // Manejo de errores: devuelve un mensaje de error al usuario
+    console.error(error);
+    throw new Error("Ocurrió un error al obtener la adicción del usuario. Por favor, inténtalo de nuevo más tarde.");
+  }
+}),
 
   // Método para registrar una recaída en la adicción
   setRelapse: protectedProcedure.mutation(async ({ ctx }) => {

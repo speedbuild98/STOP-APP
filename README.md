@@ -1,29 +1,22 @@
-# Create T3 App
-
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
-
-## What's next? How do I make an app with this?
-
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
 # STOP-APP
+
+![STOP-APP](https://github.com/speedbuild98/STOP-APP/blob/main/mobile%20(4).gif?raw=true)
+
+This web application is built using the T3 Stack, which includes the following technologies:
+
+- Next.js: Next.js is a React framework that provides server-side rendering, static site generation, and other powerful features for building web applications.
+- NextAuth.js: NextAuth.js is an authentication library for Next.js applications. It provides a set of authentication features, including various authentication providers such as GitHub, Google, and Facebook.
+- Prisma: Prisma is a modern database toolkit that simplifies database access and management. It offers an ORM (Object-Relational Mapping) layer for working with databases and provides a type-safe API for database queries and mutations.
+- Tailwind CSS: Tailwind CSS is a utility-first CSS framework that allows you to rapidly build custom user interfaces. It provides a set of pre-defined utility classes that can be used to style your components.
+- tRPC: tRPC is a TypeScript-based RPC (Remote Procedure Call) framework that simplifies client-server communication. It enables you to define API endpoints on the server and generate type-safe client code for making requests to those endpoints from the client.
+
+This particular application, named STOP-APP, is designed to help individuals track their sobriety progress and manage addictions. The app allows users to monitor the time they have been sober and stay motivated on their journey to recovery.
+
+## Key Features
+
+- **Authentication**: The app utilizes GitHub authentication through NextAuth.js, allowing users to securely log in with their GitHub accounts.
+- **Sobriety Tracker**: Users can track the duration of their sobriety and view their progress over time. The app provides a user-friendly interface to input and update the start date of their sobriety.
+- **User Interface**: The application's user interface is built using Tailwind CSS with the DaisyUI plugin, which offers additional UI components and styling options on top of Tailwind CSS.
+
+Feel free to explore the codebase to understand how these technologies have been integrated to create a basic time tracker application for managing addictions.
+
