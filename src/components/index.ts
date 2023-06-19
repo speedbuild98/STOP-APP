@@ -4,6 +4,7 @@ import AuthShowcase from './AuthShowcase';
 import Streak from './Streak';
 import Stats from './Stats';
 import LoginComponent from './LoginComponent';
+import ThemeButtons from './ThemeButtons';
 
 export {
   QuoteComponent,
@@ -12,4 +13,5 @@ export {
   Streak,
   Stats,
   LoginComponent,
+  ThemeButtons,
 }

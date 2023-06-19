@@ -1,24 +1,41 @@
 import { BsFillHeartPulseFill } from "react-icons/bs";
 import { api } from "../utils/api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+declare global {
+  interface Window {
+    my_modal_3: {
+      showModal: () => void;
+    };
+  }
+}
 
 const Stats = () => {
-  // Interfaz para representar la estructura de datos de la adicción
+  const {
+    data: addiction,
+    refetch: refetchAddiction,
+    isLoading,
+  } = api.addiction.getUserAddiction.useQuery();
 
-
-  // Consulta la adicción del usuario actual y proporciona una función para volver a consultar los datos
-  const { data: addiction, refetch: refetchAddiction } =
-    api.addiction.getUserAddiction.useQuery();
-
-  // Mutación para registrar una recaída en la adicción
   const setRelapse = api.addiction.setRelapse.useMutation({
     onSuccess: () => {
       void refetchAddiction();
     },
   });
 
-  // Manejador de eventos para registrar una recaída en la adicción
   const handleRelapse = () => {
     setRelapse.mutate();
+    toast('Relapse saved, 💪 You got this!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
   };
 
   return (
@@ -26,14 +43,20 @@ const Stats = () => {
       <div className="my-auto grid w-full grid-cols-3 gap-4">
         <div className="flex flex-1 flex-col">
           <p className="font-black uppercase text-secondary">Best</p>
-          <span className="flex items-center font-black">
-            {addiction?.best}
-              <p className="ml-1 font-light">{addiction?.best === 1 ? "Day" : "Days"}</p>
-          </span>
+          {isLoading ? (
+            <span className="loading loading-spinner text-primary"></span>
+          ) : (
+            <span className="flex items-center font-black">
+              {addiction?.best}
+              <p className="ml-1 font-light">
+                {addiction?.best === 1 ? "Day" : "Days"}
+              </p>
+            </span>
+          )}
         </div>
-        <div className="flex flex-1 justify-center">
+        <div className="item-center flex flex-1 justify-center">
           <button
-            className="btn-accent btn-circle btn animate-pulse border-4"
+            className="item-center btn-accent btn-circle btn flex animate-pulse flex-col justify-center border-4"
             onClick={() => window.my_modal_3.showModal()}
           >
             <BsFillHeartPulseFill className="h-7 w-7 text-neutral" />
@@ -60,14 +83,19 @@ const Stats = () => {
         </div>
         <div className="flex flex-col items-end justify-end">
           <p className="font-black uppercase text-secondary">Relapses</p>
-          <span className="flex items-center justify-end font-black">
-            {addiction?.relapses}
-            <p className="ml-1 font-light">
-              {addiction?.relapses === 1 ? "Time" : "Times"}
-            </p>
-          </span>
+          {isLoading ? (
+            <span className="loading loading-spinner text-primary"></span>
+          ) : (
+            <span className="flex items-center justify-end font-black">
+              {addiction?.relapses}
+              <p className="ml-1 font-light">
+                {addiction?.relapses === 1 ? "Time" : "Times"}
+              </p>
+            </span>
+          )}
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
